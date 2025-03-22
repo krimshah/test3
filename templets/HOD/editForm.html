@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    <form method='POST' action="{% url 'editHOD' %}"  enctype="multipart/form-data">
+      {% csrf_token %}   
+      <input type="hidden" value={{data.hod_id}} name="hod_id" id="hod_id">
+        <div class="form-group">
+          <label for="name">HOD Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='name' id="name" placeholder="Enter a Name Of  HOD" value="{{data.name}}" required>
+        </div>         
+         <div class="form-group">
+            <label for="email">Director Email Id<span class="text-danger">*</span></label>
+            <input type="email" tabindex="2" class="form-control form-control-rounded" name="email" id="email" placeholder="Enter a HOD Email" value={{data.email}} required>           </div>
+         
+    
+    </div>
+    <div class="form-group">
+        <label for="password"> Password<span class="text-danger">*</span></label>
+        <input type="text" tabindex="4" value={{data.password}} class="form-control form-control-rounded" name="password" id="password" placeholder="Enter a Dirtector Password" required>
+       </div>
+    <div class="form-group pt-4">
+          <button type="submit" tabindex="5" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Update</button>
+          <a class="btn btn-primary btn-round px-5" tabindex="7" href="/home">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}

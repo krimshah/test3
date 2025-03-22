@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Trust Table</h5>
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" id="alert-box">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+    <!-- Default Table -->
+    <table class="table datatable">
+      <thead>
+        <tr>
+          <th scope="col">name </th>
+          <th scope="col">gov_reg_id</th>
+          <th scope="col">email</th>
+          <th scope="col">create_at</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th>{{i.name}}</th>
+          <td>{{i.gov_reg_id}}</td>
+          <td>{{i.email}}</td>
+          <td>{{i.create_at}}</td>
+          <td>
+            <a class="btn btn-danger" href="/DelTrust/{{i.trust_id}}">Delete</a>
+            <a class="btn btn-info" href="/TrustMaster/EditForm/{{i.trust_id}}"
+              >Edit</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+{% endblock 'content' %}

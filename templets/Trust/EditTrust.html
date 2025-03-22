@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    {% if data != null %}
+     <form method='POST' action="{% url 'editTrust' %}">
+        {% csrf_token %}     
+        <input type="hidden" value="{{ data.trust_id }}" name="trust_id" id="trust_id">  
+        <div class="form-group">
+          <label for="name">Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='name' id="name" value="{{ data.name }}" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="gov_reg_id">Government Given ID <span class="text-danger">*</span></label>
+            <input type="text" tabindex="2" class="form-control form-control-rounded" name='gov_reg_id' id="gov_reg_id" value="{{ data.gov_reg_id }}" required>
+           </div>
+         <div class="form-group">
+          <label for="email">Email<span class="text-danger">*</span></label>
+          <input type="email" tabindex="3" class="form-control form-control-rounded" name='email' id="email" value="{{ data.email }}" required>
+         </div>
+         <div class="form-group">
+          <label for="password">Password</label>
+          <input type="text" tabindex="4" class="form-control form-control-rounded" name='password' id="input-8" value="{{ data.password }}" required>
+         </div>
+         </div>
+         <div class="form-group pt-4">
+          <button type="submit" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Update</button>
+          <a class="btn btn-primary btn-round px-5" href="/home">Cancel</a>
+        </div>
+   </form>
+   {% endif %}
+{% endblock  %}

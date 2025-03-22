@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    {% if messages %}
+    <div class="container">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}" id="alert-box">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <table class="table datatable">
+      <thead>
+        <tr>
+          <th scope="col"> Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Directer</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in hod %}
+        <tr>
+          <th>{{i.name}}</th>
+          <td>{{i.email}}</td>
+          <td>{{i.director}}</td>
+          <td>
+            <a
+              href="/HODMaster/EditHod/{{i.hod_id}}"
+              type="button"
+              class="btn btn-outline-success"
+            >
+              <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a
+              type="button"
+              class="btn btn-outline-danger"
+              href="/HODMaster/delHod/{{i.director_id}}"
+            >
+              <i class="bi bi-x-lg"></i> Delete
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  
+{% endblock 'content' %}

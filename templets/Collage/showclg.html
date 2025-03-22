@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    {% if messages %}
+    <div class="container">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}" id="alert-box">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <table class="table datatable">
+      <thead>
+        <tr>
+          <th scope="col">College Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Address</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th>{{i.college_name}}</th>
+          <td>{{i.email}}</td>
+          <td>{{i.address_of_college}}</td>
+          <td>
+            <a
+              href="/ColllageMaster/CollageEditForm/{{i.college_id}}"
+              type="button"
+              class="btn btn-outline-success"
+            >
+              <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a
+              type="button"
+              class="btn btn-outline-danger"
+              href="/delCollageMaster/{{i.college_id}}"
+            >
+              <i class="bi bi-x-lg"></i> Delete
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock 'content' %}

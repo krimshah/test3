@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    <form method='POST' action="{% url 'addgriv' %}"  enctype="multipart/form-data">
+      {% csrf_token %}       
+        <div class="form-group">
+          <label for="name">Curunt Semester<span class="text-danger">*</span></label>
+          <input type="text" maxlength="1" tabindex="1" class="form-control form-control-rounded" name='semester' id="semester" placeholder="Enter a Curunt semester" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="subject">Subject<span class="text-danger">*</span></label><br>
+            <textarea id="subject"  class="form-control" name="subject" tabindex="2" rows="4"  placeholder="Enter a Subject of Your Grievance Subject">
+                
+            </textarea>
+            
+           </div>
+    </div>
+    <div class="form-group">
+        <label for="message">Message<span class="text-danger">*</span></label>
+        <textarea id="message" class="form-control" name="message" rows="8" tabindex="3"  placeholder="Enter a Subject of Your Grievance">
+            
+        </textarea>
+        
+       </div>
+</div>
+    <div class="form-group pt-4">
+          <button type="submit" tabindex="5" class="btn btn-success btn-round px-5 "><i class="icon-lock"></i> Submit</button>
+          <a class="btn btn-danger btn-round px-5" tabindex="7" href="/">Cancel</a>
+        </div>
+   </form>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var inputField = document.getElementById("semester");
+  
+      inputField.addEventListener("input", function(event) {
+          var inputValue = event.target.value;
+          if (!/^[1-6]*$/.test(inputValue)) {
+              event.target.value = inputValue.slice(0, -1);
+          }
+      });
+  });
+  </script>
+{% endblock  %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{title}}</h5>
+    {% if messages %}
+    <div class="container">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}" id="alert-box">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <table class="table datatable" id="myid">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Enrollment NO</th>
+          <th scope="col">Email</th>
+          <th scope="col">HOD </th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in student %}
+        <tr>
+          <th>{{i.name}}</th>
+          {% if i.barcode.url %}
+          
+          <th> <img src="{{i.barcode.url}}" alt="Barcode" width="250" height="100">
+            </th>
+          {% else %}
+          <th>{{i.name}}</th>
+           {% endif %} 
+          <th>{{i.email}}</th>
+          
+          <td>{{i.hod_id}}</td>
+          <td>
+            <a
+              href="/StudentMaster/EditStudentForm/{{i.stu_id}}"
+              type="button"
+              class="btn btn-outline-success"
+            >
+              <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a
+              type="button"
+              class="btn btn-outline-danger"
+              href="/StudentMaster/DelStudent/{{i.stu_id}}"
+            >
+              <i class="bi bi-x-lg"></i> Delete
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  
+
+  $(document).ready(function (){
+    $('#myid').addClass('nowrap').DataTable({
+      responsive: true,
+      columnDefs: [
+        {
+          targets: [4], // The index of the column you want to disable sorting for
+          orderable: false // Disable sorting for this column
+        }
+      ]
+    });
+  });
+  
+
+</script>
+{% endblock 'content' %}

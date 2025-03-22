@@ -1,0 +1,112 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+    <div class="card-body">
+        <div class="container" id="fullscreenModal" >
+           
+                <div class="modal-body">
+                    <div class="container">
+
+                  <p><br>
+                    <p class="text-primary fs-3">
+Sender: {{i.sender.email}}</p>
+Subject: {{i.subject}}<br><br>
+{% if i.hod_Fk %}
+Dear {{i.hod_Fk}},<br><br>
+{% elif i.directer_Fk %}
+Dear {{i.directer_Fk}},<br><br>
+{% elif i.department_Fk %}
+Dear {{i.department_Fk}},<br><br>
+{% elif i.collage_Fk %}
+Dear {{i.collage_Fk}},<br><br>
+{% elif i.university_Fk %}
+Dear {{i.university_Fk}},<br><br>
+{% elif i.trust_Fk %}
+Dear {{i.trust_Fk}}
+{% endif %}
+
+Message:{{i.message}}<br>
+Sincerely,<br>
+{{i.sender}}<br>
+{{i.sender.email}}
+I am writing to bring to your attention a grievance that I have encountered within {% if i.department_Fk %}{{i.department_Fk}} {% endif %}<br>
+{% if i.collage_Fk %} /{{i.collage_Fk}}{% endif %} {% if i.university_Fk %}/{{i.university_Fk}}{% endif %} .<br><br>
+Below are the details of the grievance:<br>
+Grievance ID: {{i.grievanceId}}<br>
+Enrollment Number: {{i.Enrollment}}<br>
+
+
+{% if i.hod_Fk %}
+HOD: {{i.hod_Fk}},<br><br>
+{% endif %}
+{% if i.directer_Fk %}
+Director:{{i.directer_Fk}},<br><br>
+{% endif %}
+{% if i.department_Fk %}
+Department:  {{i.department_Fk}},<br><br>
+{% endif %}
+{% if i.collage_Fk %}
+Collage: {{i.collage_Fk}},<br><br>
+{% endif %}
+{% if i.university_Fk %}
+University : {{i.university_Fk}},<br><br>
+{% endif %}
+{% if i.trust_Fk %}
+Trust : {{i.trust_Fk}}<br>
+{% endif %}
+
+
+
+
+Semester: {{i.semester}}<br>
+
+</p>
+</div>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary mx-3" href="/grievanceMaster/ShowGriv"> Close</a>
+                    {% if role == 'HOD' %}
+                      {% if check %}
+                      <a class="btn btn-success mx-3" href="/SolvegrievanceMaster/show/{{i.grievanceId}}" >Show Solution</a>
+                      {% else %}
+                      <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Directer</a>
+                      <a class="btn btn-success mx-3" href="/SolvegrievanceMaster/addSolve/{{i.grievanceId}}">Resolve Grievance</a>
+                      {% endif %}
+                    {% endif %}
+                    {% if role == 'Directer' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Department</a>
+                    <a class="btn btn-success mx-3" href="/SolvegrievanceMaster/addSolve/{{i.grievanceId}}">Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Department' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Collage</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Collage' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To University</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'University' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Trust</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Trust' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Goverment</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                 
+                    {% if role == 'Admin' %}
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                   
+                    
+                    {% if role == "Student" %}
+                        <a class="btn btn-success mx-3" href="/SolvegrievanceMaster/show/{{i.grievanceId}}" >Check Status</a>
+                        <a class="btn btn-danger mx-3" href="/grievanceMaster/delgrievance/{{i.grievanceId}}">Delete</a>
+                    {% endif %}
+                  {% comment %} <button type="button" class="btn btn-primary">Save changes</button> {% endcomment %}
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock 'content' %}

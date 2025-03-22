@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block 'content' %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Default Table</h5>
+
+    <!-- Default Table -->
+    <table class="table datatable" id="myProjectTable">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Create At</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th>{{i.name}}</th>
+          <td>{{i.email_id}}</td>          
+          <td>{{i.create_at}}</td>
+          <td>
+            <a class="btn btn-danger" href='/DelAdmin/{{i.id}}'>Delete</a>
+            <a class="btn btn-info" href='/AdminMaster/EditForm/{{i.id}}'>Edit</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+  </div>
+</div>
+<script>
+  $(document).ready(function (){
+    $('#myProjectTable').addClass('table datatable datatable-table').dataTable({
+      responsive : true,
+      columndefs :[
+        {
+          targets : [3],
+          "bSortable":false;
+          className : 'dt-body-right'
+        }
+      ]
+    });
+  });
+</script>
+{% endblock 'content' %}
+
+  

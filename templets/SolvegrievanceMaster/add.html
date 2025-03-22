@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    <form method='POST' action="{% url 'addsolvgrav' %}"  enctype="multipart/form-data">
+      {% csrf_token %}       
+        <div class="form-group">
+         {% comment %} <label for="GrievanceId">Grievance Id<span class="text-danger">*</span></label> {% endcomment %}
+         <input type="hidden" tabindex="1" class="form-control form-control-rounded" name='GrievanceId' id="GrievanceId" placeholder="Enter Your GrievanceId" value='{{data.grievanceId}}' readonly>
+        </div>
+      
+        <div class="form-group">
+           {% comment %} <label for="solver_Email"> Email <span class="text-danger">*</span></label> {% endcomment %}
+           <input type="hidden" tabindex="2" class="form-control form-control-rounded" name="solver_Email" id="solver_Email" value="{{email}}" placeholder="Enter a Collage Email" readonly>
+          </div>
+        <div class="form-group">
+         {% comment %} <label for="solver_name">solver Name <span class="text-danger">*</span></label> {% endcomment %}
+         <input type="hidden" tabindex="3" class="form-control form-control-rounded" name="solver_name" id="solver_name" value="{{name}}" readonly>
+        </div>
+        <div class="form-group">
+            {% comment %} <label for="solver_role">Role <span class="text-danger">*</span></label> {% endcomment %}
+            <input type="hidden" tabindex="4" class="form-control form-control-rounded" name="solver_role" id="solver_role" value="{{role}}" readonly>
+        </div>
+        <div class="form-group">
+            {% comment %} <label for="studentId">Sender Id <span class="text-danger">*</span></label> {% endcomment %}
+            <input type="hidden" tabindex="5" class="form-control form-control-rounded" name="studentId" id="studentId" value="{{data.sender.stu_id}}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="subject">subject<span class="text-danger">*</span></label><br>
+            <input type="text" id="subject"  class="form-control" name="subject" tabindex="6" rows="8" tabindex="3"  value="{{data.subject}}" readonly>
+           </div>
+        <div class="form-group">
+            <label for="solution">solution<span class="text-danger">*</span></label><br>
+            <textarea id="solution"  class="form-control" name="solution" tabindex="6" rows="8" tabindex="3"  minlength="30" required>                
+            </textarea>            
+           </div>
+        </div>
+         <div class="form-group pt-4">
+          <button type="submit" tabindex="7" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Send </button>
+          <a class="btn btn-primary btn-round px-5" href="/grievanceMaster/ShowGriv" tabindex="8">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}

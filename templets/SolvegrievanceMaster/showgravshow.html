@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+    <div class="card-body">
+        <div class="container" id="fullscreenModal" >
+           
+                <div class="modal-body">
+                    <div class="container">
+
+                  <p><br>
+                    <p class="text-primary fs-3">
+                        Solver: {{data.solver_name}} ({{data.solver_role}})</p>
+Grievance Id : {{data.GrievanceId.grievanceId}} <br>
+{% if data.grievanceId.create_at %}
+Grievance Send Date : {{data.grievanceId.create_at}}
+{% endif %}
+Solver Email : {{data.solver_Email}}<br>
+Solve Date : {{data.create_at}} <br>
+Grievance Subject : {{data.subject}}<br>
+To Student : {{data.studentId.name}}<br>
+Semester : {{data.GrievanceId.semester}}<br>
+Enrollment Number : {{data.GrievanceId.Enrollment}}<br><br>
+
+<h5>Action Taken By {{data.solver_role}}
+<p>
+    Dear, {{data.GrievanceId.sender.name}}
+    <br>
+    <p>I hope this message finds you well.</p>
+    {{data.solution}}
+    <br>
+    <br>
+    Please do not hesitate to reach out if you have any further questions or concerns regarding this matter. Your feedback is highly valued as we work towards a resolution.
+    <br>
+    <br>
+    Thank you for your understanding and cooperation.
+    <br>
+    <br>
+    Warm regards,
+    <br>({{data.solver_role}})
+    <br>{{data.solver_name}}
+</p>
+</h5>
+
+
+
+</p>
+</div>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary mx-3" href="/grievanceMaster/ShowGriv"> Close</a>
+                    {% comment %} {% if role == 'HOD' %}
+                        <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Directer</a>
+                        <a class="btn btn-success mx-3" href="/SolvegrievanceMaster/addSolve/{{i.grievanceId}}">Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Directer' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Department</a>
+                    <a class="btn btn-success mx-3" href="/SolvegrievanceMaster/addSolve/{{i.grievanceId}}">Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Department' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Collage</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Collage' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To University</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'University' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Trust</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                    {% if role == 'Trust' %}
+                    <a class="btn btn-danger mx-3" href="/grievanceMaster/TranferGrav/{{i.grievanceId}}">Send To Goverment</a>
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                 
+                    {% if role == 'Admin' %}
+                    <a class="btn btn-success mx-3" >Resolve Grievance</a>
+                    {% endif %}
+                   
+                    
+                    {% if role == "Student" %}
+                        <a class="btn btn-success mx-3" >Check Status</a>
+                        <a class="btn btn-danger mx-3" href="/grievanceMaster/delgrievance/{{i.grievanceId}}">Delete</a>
+                    {% endif %} {% endcomment %}
+                  {% comment %} <button type="button" class="btn btn-primary">Save changes</button> {% endcomment %}
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock 'content' %}

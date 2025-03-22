@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" id="alert-box">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+    <hr>
+    <form method='POST' action="{% url 'storeddirecter' %}"  enctype="multipart/form-data">
+      {% csrf_token %}       
+        <div class="form-group">
+          <label for="name">Director Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='name' id="name" placeholder="Enter a Name Of  Director" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="email">Director Email Id<span class="text-danger">*</span></label>
+            <input type="email" tabindex="2" class="form-control form-control-rounded" name="email" id="email" placeholder="Enter a Director Email" required>
+           </div>
+         
+        
+    </div>
+    <div class="form-group">
+        <label for="password">Director Password<span class="text-danger">*</span></label>
+        <input type="password" tabindex="4" class="form-control form-control-rounded" name="password" id="password" placeholder="Enter a Dirtector Password" required>
+       </div>
+    <div class="form-group pt-4">
+          <button type="submit" tabindex="5" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Register</button>
+          <a class="btn btn-primary btn-round px-5" tabindex="7" href="/home">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}

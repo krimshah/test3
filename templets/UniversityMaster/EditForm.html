@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">Edit University</div>
+    <hr>
+    <form method="POST" Action="{% url 'edituniversity' %}" >
+
+        {% csrf_token %}     
+        <input type="hidden" name="university_id" value="{{data.university_id}}" id="university_id">  
+        <div class="form-group">
+          <label for="university_name">University Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='university_name' value="{{data.university_name}}" id="university_name" placeholder="Enter Your University Name" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="email">email ID<span class="text-danger">*</span></label>
+            <input type="email" tabindex="2" class="form-control form-control-rounded" name='email' id="email" value="{{data.email}}" placeholder="Enter a Valid Email Id" required>
+           </div>
+         
+         <div class="form-group">
+            <label for="university_code">University Code</label>
+            <input type="text" tabindex="4" class="form-control form-control-rounded" name='university_code' value="{{data.university_code}}" id="input-8" placeholder="Enter a Valid University Code " required>
+        </div>
+       
+         <div class="form-group">
+          <label for="password">Password</label>
+          <input type="text" tabindex="4" class="form-control form-control-rounded" value="{{data.password}}" name='password' id="input-8" placeholder="Enter Your Password" required>
+         </div>
+         </div>
+         <div class="form-group pt-4">
+          <button type="submit" class="btn btn-primary btn-round px-5 "><i class="icon-edit"></i>Edit</button>
+          <a class="btn btn-primary btn-round px-5" href="/home">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}

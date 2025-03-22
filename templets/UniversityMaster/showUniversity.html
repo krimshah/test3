@@ -1,0 +1,62 @@
+{% extends "base.html" %} {% block 'content' %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">University Table</h5>
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" id="alert-box">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+    <!-- Default Table -->
+    <table class="table datatable">
+      <thead>
+        <tr>
+          <th scope="col">university name</th>
+          <th scope="col">email</th>
+          {% comment %} <th scope="col">logo</th> {% endcomment %}
+          <th scope="col">password</th>
+          <th scope="col">university_code</th>
+          <th scope="col">trust id</th>
+          <th scope="col">create_at</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th>{{i.university_name}}</th>
+          <td>{{i.email}}</td>
+          {% comment %} <td>{{i.logo}}</td> {% endcomment %}
+          <td>{{i.password}}</td>
+          <td>{{i.university_code}}</td>
+          <td>{{i.trust}}</td>
+          <td>{{i.create_at}}</td>
+          <td>
+            <a class="btn btn-danger" href="/DelUniversity/{{i.university_id}}"
+              >Delete</a
+            >
+            <a
+              class="btn btn-info"
+              href="/UniversityMaster/EditForm/{{i.university_id}}"
+              >Edit</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // JavaScript code to automatically dismiss the alert box after 3 seconds
+  setTimeout(function() {
+    
+    document.getElementById('alert-box').style.display = 'none';
+  }, 2000); // 3000 milliseconds = 3 seconds
+</script>
+{% endblock 'content' %}

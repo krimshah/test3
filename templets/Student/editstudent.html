@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    <form method='POST' action="{% url 'editStudent' %}"  enctype="multipart/form-data">
+      {% csrf_token %} 
+      <input type="hidden" value="{{data.stu_id}}" name="stu_id" id="stu_id">      
+        <div class="form-group">
+          <label for="name">Student Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='name' id="name" placeholder="Enter a Name Of Student" value={{data.name}} required>
+         </div>         
+         <div class="form-group">
+            <label for="enrollment_no">Enrollment Number<span class="text-danger">*</span></label>
+            <input type="text" tabindex="2" maxlength='16' value={{data.enrollment_no}} class="form-control form-control-rounded" name="enrollment_no" id="enrollment_no" onkeyup="checkSequence(event)" placeholder="Enter a Valid Enrollment No" required>           </div>
+            <p id="result" class="text-danger"></p>
+            <div class="form-group">
+              <label for="email">Email<span class="text-danger">*</span></label>
+              <input type="email" tabindex="3" value={{data.email}} class="form-control form-control-rounded" name="email" id="email" placeholder="Enter a Valid Student Email" required>       
+            </div>
+           
+        <div class="form-group">
+            <label for="hod_id">HOD Name :</label>
+           <select class="form-select" id="hod_id" value={{data.hod_id}} tabindex='4' name="hod_id" aria-label="Disabled select example" tabindex="3">
+            {% for i in hod %}
+            <option value="{{i.hod_id}}">{{i.name}}</option>
+            {% endfor %}
+          </select>
+        </div> 
+    </div>
+    <div class="form-group">
+        <label for="password">Password<span class="text-danger">*</span></label>
+        <input type="text" tabindex="5" value={{data.password}} class="form-control form-control-rounded" name="password" id="password" placeholder="Enter a Dirtector Password" required>
+       </div>
+    <div class="form-group pt-4">
+          <button type="submit" tabindex="6" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Update</button>
+          <a class="btn btn-primary btn-round px-5" tabindex="7" href="/home">Cancel</a>
+        </div>
+   </form>
+
+
+   <script>
+    // Get the input element
+    const numberInput = document.getElementById('enrollment_no');
+
+    // Add event listener for input event
+    numberInput.addEventListener('input', function(event) {
+      // Get the entered value
+      const inputValue = event.target.value;
+      
+      // Remove any non-numeric characters using a regular expression
+      const numericValue = inputValue.replace(/[^0-9]/g, '');
+
+      // Update the input field with the sanitized value
+      numberInput.value = numericValue;
+    });
+
+    function startsWithSequence(numberString, sequence) {
+      return numberString.startsWith(sequence);
+  }
+  
+  function checkSequence(event) {
+      if (event.key === 'Enter') {
+          const enteredNumber = document.getElementById("enrollment_no").value;
+          const sequence = "202100450";
+  
+          if (startsWithSequence(enteredNumber, sequence)) {
+              document.getElementById("result").textContent = "The entered number starts with the sequence 202100450.";
+          } else {
+              document.getElementById("result").textContent = "The entered number does not start with the sequence 202100450.";
+          }
+      }
+  }
+  </script>
+  
+{% endblock  %}

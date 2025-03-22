@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    <form method='POST' action="{% url 'editDirecter' %}"  enctype="multipart/form-data">
+      {% csrf_token %}     
+      <input type="hidden" name="director_id" id="director_id" value={{data.director_id}}>
+        <div class="form-group">
+          <label for="name">Department Name<span class="text-danger">*</span></label>
+          <input type="text" value="{{data.name}}" tabindex="1" class="form-control form-control-rounded" name='name' id="name" placeholder="Enter a Name Of  Directer" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="email">directer Email Id<span class="text-danger">*</span></label>
+            <input type="email" tabindex="2" value="{{data.email}}" class="form-control form-control-rounded" name="email" id="email" placeholder="Enter a Valid directer Email Id " required>
+           </div>         
+        {% comment %} <div class="form-group">
+            <label for="department">Department Name :</label>
+           <select class="form-select" id="department" value="{{data.department}}" name="department" aria-label="Disabled select example" tabindex="3">
+            {% for i in dept %}
+            <option value="{{i.department_id}}">{{i.dept_name}}</option>
+            {% endfor %}
+          </select>
+        </div>           {% endcomment %}
+         <div class="form-group">
+          <label for="password">Password</label>
+          <input type="text" tabindex="4" value="{{data.password}}" class="form-control form-control-rounded" name="password" id="password" placeholder="Enter a PAssword of Department" required>
+         </div>
+         </div>
+         <div class="form-group pt-4">
+          <button type="submit" tabindex="5" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Update</button>
+          <a class="btn btn-primary btn-round px-5" tabindex="6" href="/home">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}

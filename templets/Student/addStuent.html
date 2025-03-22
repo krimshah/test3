@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" id="alert-box">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+<!-- Custom Modal for Alerts -->
+<div id="customAlert" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeAlert()">&times;</span>
+    <p id="alertMessage"></p>
+  </div>
+</div>
+
+    <hr>
+    <form method='POST' action="{% url 'storestudent' %}"  enctype="multipart/form-data">
+      {% csrf_token %}       
+        <div class="form-group">
+          <label for="name">Student Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='name' id="name" placeholder="Enter a Name Of Student" required>
+         </div>         
+         <div class="form-group">
+            <label for="enrollment_no">Enrollment Number<span class="text-danger">*</span></label>
+            <input type="text" tabindex="2" maxlength="16" minlength="16" class="form-control form-control-rounded" name="enrollment_no" id="enrollment_no" placeholder="Enter a Valid Enrollment No" required>           </div>
+            <div class="form-group">
+              <label for="email">Email<span class="text-danger">*</span></label>
+              <input type="email" tabindex="3" class="form-control form-control-rounded" name="email" id="email" placeholder="Enter a Valid Student Email" required>       
+            </div>
+           
+        {% comment %} <div class="form-group">
+            <label for="hod_id">HOD Name :</label>
+           <select class="form-select" id="hod_id" tabindex='4' name="hod_id" aria-label="Disabled select example" tabindex="3">
+            {% for i in hod %}
+            <option value="{{i.hod_id}}">{{i.name}}</option>
+            {% endfor %}
+          </select>
+        </div>  {% endcomment %}
+    </div>
+    <div class="form-group">
+        <label for="password">Password<span class="text-danger">*</span></label>
+        <input type="password" tabindex="5" class="form-control form-control-rounded" name="password" id="password" placeholder="Enter a Dirtector Password" required>
+       </div>
+    <div class="form-group pt-4">
+          <button type="submit" tabindex="6" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Register</button>
+          <a class="btn btn-primary btn-round px-5" tabindex="7" href="/">Cancel</a>
+        </div>
+   </form>
+
+   <script>
+    // Function to display a custom alert modal
+    function showAlert(message) {
+      const alertModal = document.getElementById('customAlert');
+      const alertMessage = document.getElementById('alertMessage');
+      
+      // Set the alert message
+      alertMessage.textContent = message;
+      
+      // Show the modal
+      alertModal.style.display = 'block';
+    }
+  
+    // Function to close the custom alert modal
+    function closeAlert() {
+      const alertModal = document.getElementById('customAlert');
+      alertModal.style.display = 'none';
+    }
+  
+    // Form validation function
+    function validateForm(event) {
+      // Get form elements
+      const name = document.getElementById("name");
+      const enrollmentNo = document.getElementById("enrollment_no");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+  
+      // Check if the Name field is empty
+      if (name.value.trim() === "") {
+        showAlert("Student Name cannot be empty");
+        name.focus();
+        event.preventDefault(); // Prevent form submission
+        return false;
+      }
+  
+      // Check if the Enrollment Number is exactly 12 digits
+      const enrollmentNoPattern = /^\d{12}$/; // Regular expression for 12 digits
+      if (!enrollmentNoPattern.test(enrollmentNo.value)) {
+        showAlert("Enrollment Number must be exactly 12 digits.");
+        enrollmentNo.focus();
+        event.preventDefault(); // Prevent form submission
+        return false;
+      }
+  
+      // Check if the Email field is empty
+      if (email.value.trim() === "") {
+        showAlert("Email cannot be empty");
+        email.focus();
+        event.preventDefault(); // Prevent form submission
+        return false;
+      }
+  
+      // Check if the Password field is empty
+      if (password.value.trim() === "") {
+        showAlert("Password cannot be empty");
+        password.focus();
+        event.preventDefault(); // Prevent form submission
+        return false;
+      }
+  
+      // If all validations pass, allow the form to submit
+      return true;
+    }
+  
+    // Attach the validation function to the form's submit event
+    document.querySelector('form').addEventListener('submit', validateForm);
+  </script>
+  
+   <script>
+    // Get the input element
+    const numberInput = document.getElementById('enrollment_no');
+
+    // Add event listener for input event
+    numberInput.addEventListener('input', function(event) {
+      // Get the entered value
+      const inputValue = event.target.value;
+      
+      // Remove any non-numeric characters using a regular expression
+      const numericValue = inputValue.replace(/[^0-9]/g, '');
+
+      // Update the input field with the sanitized value
+      numberInput.value = numericValue;
+    });
+  </script>
+  
+{% endblock  %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    <hr>
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" id="alert-box">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+    <form method='POST' action="{% url 'addDept' %}"  enctype="multipart/form-data">
+      {% csrf_token %}       
+        <div class="form-group">
+          <label for="dept_name">Department Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='dept_name' id="dept_name" placeholder="Enter a Name Of  Department" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="email">Department Email Id<span class="text-danger">*</span></label>
+            <input type="email" tabindex="2" class="form-control form-control-rounded" name="email" id="email" placeholder="Enter a Department Email" required>
+           </div>
+         
+        {% comment %} <div class="form-group">
+            <label for="college">Collage Name :</label>
+           <select class="form-select" id="college" name="college" aria-label="Disabled select example" tabindex="3">
+            {% for i in clg %}
+            <option value="{{i.college_id}}">{{i.college_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+           {% endcomment %}
+         <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" tabindex="4"  class="form-control form-control-rounded" name="password" id="password" placeholder="Enter a PAssword of Department" required>
+         </div>
+         </div>
+         <div class="form-group pt-4">
+          <button type="submit" tabindex="5" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Register</button>
+          <a class="btn btn-primary btn-round px-5" tabindex="6" href="/home">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}

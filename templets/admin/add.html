@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">Add The Admin</div>
+    <hr>
+     <form method='POST' action="{% url 'storeAdmin' %}">
+        {% csrf_token %}       
+        <div class="form-group">
+          <label for="input-6">Name</label>
+          <input type="text" class="form-control form-control-rounded" Name='name' id="input-6" placeholder="Enter Your Name" required>
+         </div>
+         <div class="form-group">
+          <label for="input-7">Email</label>
+          <input type="email" class="form-control form-control-rounded" name='email_id' id="input-7" placeholder="Enter Your Email Address" required>
+         </div>
+         <div class="form-group">
+          <label for="input-8">Password</label>
+          <input type="text" class="form-control form-control-rounded" name='password' id="input-8" placeholder="Enter Your Mobile Number" required>
+         </div>
+         </div>
+         <div class="form-group pt-4">
+          <button type="submit" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Register</button>
+        </div>
+   </form>
+{% endblock  %}

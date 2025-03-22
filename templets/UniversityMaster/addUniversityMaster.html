@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block 'content' %}
+    
+    <div class="card-title">{{title}}</div>
+    {% if messages %}
+<div class="container">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }}" id="alert-box">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+    <hr>
+    <form method='POST' action="{% url 'adduniversity' %}" enctype="multipart/form-data">
+
+        {% csrf_token %}       
+        <div class="form-group">
+          <label for="university_name">University Name<span class="text-danger">*</span></label>
+          <input type="text" tabindex="1" class="form-control form-control-rounded" name='university_name' id="university_name" placeholder="Enter Your Name" required>
+         </div>
+         
+         <div class="form-group">
+            <label for="email">email ID<span class="text-danger">*</span></label>
+            <input type="email" tabindex="2" class="form-control form-control-rounded" name='email' id="email" placeholder="Enter a Valid Email Id" required>
+           </div>
+         {% comment %} <div class="form-group">
+          <label for="logo">Email<span class="text-danger">*</span></label>
+          <input type="file" tabindex="3" class="form-control form-control-rounded" name='logo' id="logo"  required>
+         </div> {% endcomment %}
+
+         <div class="form-group">
+            <label for="university_code">University Code</label>
+            <input type="text" tabindex="4" class="form-control form-control-rounded" name='university_code' id="input-8" placeholder="Enter a Valid University Code " required>
+        </div>
+        {% comment %} <div class="form-group">
+            <label for="trust">Trust</label>
+           <select class="form-select" id="trust" name="trust" aria-label="Disabled select example" >
+            {% for i in trust %}
+            <option value="{{i.trust_id}}">{{i.name}}</option>
+            {% endfor %}
+          </select>
+        </div> {% endcomment %}
+          
+         <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" tabindex="4" class="form-control form-control-rounded" name='password' id="input-8" placeholder="Enter Your Password" required>
+         </div>
+         </div>
+         <div class="form-group pt-4">
+          <button type="submit" class="btn btn-primary btn-round px-5 "><i class="icon-lock"></i> Register</button>
+          <a class="btn btn-primary btn-round px-5">Cancel</a>
+        </div>
+   </form>
+{% endblock  %}
